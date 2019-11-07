@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Password Generator</title>
   </head>
 
@@ -36,22 +37,26 @@
             id="password"
             placeholder="Your Secure Password"
             aria-label="Generated Password"
-            class="w-50"
+            class="w-75"
           ></textarea>
         </div>
       </div>
 
       <div class="row">
 
-        <div class="col-sm-6 p-3 d-flex justify-content-end">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-3 p-3 d-flex justify-content-center">
           <button id="generate" onclick="generatepassword()">Generate Password</button>
         </div>
 
-        <div class="col-sm-6 p-3 d-flex justify-content-start">
-          <button id="copy">
+        <div class="col-sm-3 p-3 d-flex justify-content-center">
+          <button id="copy" onclick="copyPassword()">
           Copy to Clipboard
           </button>
-         </div>
+        </div>
+        
+        <div class="col-sm-3"></div>
 
       </div>
 
@@ -62,7 +67,7 @@
       
       function generatepassword() {
         
-        var passwordLength = prompt("How many characters would you like your password to contain? Please enter a number between '8' and '128'.");
+        var passwordLength = prompt("How many characters would you like your password to contain? Enter a number between '8' and '128'.");
         var parameter1 = confirm("Would you like your password to contain special characters?");
         var parameter2 = confirm("Would you like your password to contain numbers?");
         var parameter3 = confirm("Would you like your password to contain lowercase letters?");
@@ -91,14 +96,24 @@
 
         if (parameter1 === false && parameter2 === false && parameter3 === false && parameter4 === false) {
           alert("You must select at least one parameter.");
-        }
+        } else {
+            for (var i = 0; i < passwordLength; i++) {
+            var randomCharacter = validCharacters[Math.floor(Math.random()*validCharacters.length)];
+            document.getElementById("password").innerHTML += randomCharacter;
+            }
+          }
 
-        for (var i = 0; i < passwordLength; i++) {
-          var randomCharacter = validCharacters[Math.floor(Math.random()*validCharacters.length)];
-          document.getElementById("password").innerHTML += randomCharacter;
-        }
+        
 
       }
+
+      function copyPassword() {
+        var copyText = document.getElementById("password");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+      }
+      
 
     </script>
 
