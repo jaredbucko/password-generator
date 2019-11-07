@@ -8,8 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- custom css -->
-    <link rel="stylesheet" href="style.css">
     <title>Password Generator</title>
   </head>
 
@@ -38,17 +36,18 @@
             id="password"
             placeholder="Your Secure Password"
             aria-label="Generated Password"
+            class="w-50"
           ></textarea>
         </div>
       </div>
 
       <div class="row">
 
-        <div class="col-sm-6 d-flex justify-content-end">
+        <div class="col-sm-6 p-3 d-flex justify-content-end">
           <button id="generate" onclick="generatepassword()">Generate Password</button>
         </div>
 
-        <div class="col-sm-6 d-flex justify-content-start">
+        <div class="col-sm-6 p-3 d-flex justify-content-start">
           <button id="copy">
           Copy to Clipboard
           </button>
@@ -60,12 +59,7 @@
 
     <!-- custom script -->
     <script>
-      var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-      var uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-      var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-      var characters = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "}", "~", "'"];
-      var allParameters = [lowercase, uppercase, numbers, characters];
-
+      
       function generatepassword() {
         
         var passwordLength = prompt("How many characters would you like your password to contain? Please enter a number between '8' and '128'.");
@@ -73,21 +67,38 @@
         var parameter2 = confirm("Would you like your password to contain numbers?");
         var parameter3 = confirm("Would you like your password to contain lowercase letters?");
         var parameter4 = confirm("Would you like your password to contain uppercase letters?");
+        var validCharacters = []
 
-        if (parameter1 === true && parameter2 === true && parameter3 === true && parameter4 === true) {
-          for (var i = 0; i < passwordLength; i++) {
-            var randomArray = allParameters[Math.floor(Math.random()*allParameters.length)];
-            var randomCharacter = randomArray[Math.floor(Math.random()*randomArray.length)];
-            document.getElementById("password").innerHTML += randomCharacter;
-          }
+        if (parameter1) {
+          validCharacters.push("!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "}", "~", "'");
+          console.log(validCharacters);
         }
 
-        else if (parameter1 === true && parameter2 === true && parameter3 === true && parameter4 === true)
+        if (parameter2) {
+          validCharacters.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
+          console.log(validCharacters);
+        }
 
+        if (parameter3) {
+          validCharacters.push("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+          console.log(validCharacters);
+        }
+
+        if (parameter4) {
+          validCharacters.push("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+          console.log(validCharacters);
+        }
+
+        if (parameter1 === false && parameter2 === false && parameter3 === false && parameter4 === false) {
+          alert("You must select at least one parameter.");
+        }
+
+        for (var i = 0; i < passwordLength; i++) {
+          var randomCharacter = validCharacters[Math.floor(Math.random()*validCharacters.length)];
+          document.getElementById("password").innerHTML += randomCharacter;
+        }
 
       }
-
-
 
     </script>
 
@@ -95,7 +106,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+
   </body>
 
 </html>
